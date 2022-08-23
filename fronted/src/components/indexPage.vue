@@ -78,6 +78,7 @@ export default {
   },
  
   methods: {
+   
     getDataByName() {
       let url = "http://localhost:8081/api/v1/user/?name=" + this.name;
       this.axios.get(url, {
@@ -113,17 +114,20 @@ export default {
         });
     },
     deleteData(index) {
-      let url = "http://localhost:8081/api/v1/user/" + index;
-      this.axios.delete(url).then(
-        (result) => {
-          console.log(result);
-          this.user = result.data;
+      if(window.confirm("確認刪除此 user 嗎")){
+        let url = "http://localhost:8081/api/v1/user/" + index;
+        this.axios.delete(url).then(
+          (result) => {
+            console.log(result);
+            this.user = result.data;
 
-        }).catch(e => {
-          this.text = index
-          console.log(e);
-          // window.location.reload();
-        });
+          }).catch(e => {
+            this.text = index
+            console.log(e);
+            // window.location.reload();
+          });
+      }
+    
     }
   }
 }
